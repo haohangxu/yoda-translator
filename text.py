@@ -2,6 +2,7 @@ from rules import apply_yodish_grammar
 from word import Word, capitalize
 
 punctuation = [u',', u'.', u';', u'?', u'!', u':']
+stop_punctuation = [ u'.', u'!', u'?' ]
 
 def translate_sents(text):
     """ Applies translation rules to some spacy-processed text """
@@ -52,7 +53,7 @@ def serialize(words):
     for (i, word) in enumerate(words):
         if (i > 0 and word.text in punctuation) or word.tag == "POS":
             string[-1] = string[-1] + word.text
-        elif (i > 0 and word.text == '.'):
+        elif (i > 0 and words[i - 1].text in stop_punctuation):
             string.append(capitalize(word.text))
         else:
             string.append(word.text)

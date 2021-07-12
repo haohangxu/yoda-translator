@@ -39,8 +39,8 @@ def replace_tag_seq(words, seq1, seq2):
         pre = words[:seq_start]
         post = words[seq_start+len(seq1):]
         tag_to_word = dict([ (word.tag, word) for word in words[seq_start:seq_start + len(seq1)] ])
-        new = filter(lambda x : x is not None, [ tag_to_word[x] if x in tag_to_word else None ])
-        return pre + new + post
+        new = filter(lambda x : x is not None, [ tag_to_word[x] if x in tag_to_word else None for x in seq2 ])
+        return pre + list(new) + post
     return None
 
 def rule_prp_vbp(words):
